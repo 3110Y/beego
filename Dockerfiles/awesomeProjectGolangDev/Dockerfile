@@ -9,7 +9,8 @@ ENV UID=${UID}
 ENV GID=${GID}
 ENV APP_ENV=${APP_ENV}
 
-RUN go get -u github.com/astaxie/beego
+#RUN go get -u github.com/astaxie/beego
+#RUN go get -u github.com/beego/bee
 
 RUN getent passwd $UID || (groupadd --gid $GID user && useradd --uid $UID --gid user --shell /bin/bash --create-home user)
 USER $UID

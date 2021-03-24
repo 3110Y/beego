@@ -5,17 +5,34 @@ networks:
   awesomeProjectAPINetworks:
 
 services:
-  awesome-project-golang:
-    container_name: awesome-project-golang
+  aawesome-project-golang-dev:
+    container_name: awesome-project-golang-dev
     build:
-      context: ./Dockerfiles/awesomeProjectGolang
+      context: ./Dockerfiles/awesomeProjectGolangDev
       args:
         UID: ${UID}
         GID: ${GID}
         APP_ENV: ${APP_ENV}
+    tty: true
     ports:
       - '80:80'
     volumes:
-      - ./:/app
+      - ./src:/app
+      - ./script:/root
     networks:
       - awesomeProjectAPINetworks
+
+#  awesome-project-golang:
+#    container_name: awesome-project-golang
+#    build:
+#      context: ./Dockerfiles/awesomeProjectGolang
+#      args:
+#        UID: ${UID}
+#        GID: ${GID}
+#        APP_ENV: ${APP_ENV}
+#    ports:
+#      - '80:80'
+#    volumes:
+#      - ./:/app
+#    networks:
+#      - awesomeProjectAPINetworks
