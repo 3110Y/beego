@@ -1,0 +1,5 @@
+.idea
+pkg
+!pkg/.gitignore
+bin
+!bin/.gitignore

@@ -2,37 +2,42 @@
 version: '3'
 
 networks:
-  awesomeProjectAPINetworks:
+  APINetworks:
 
 services:
-  aawesome-project-golang-dev:
-    container_name: awesome-project-golang-dev
+  golang-tty:
+    container_name: golang-tty
     build:
-      context: ./Dockerfiles/awesomeProjectGolangDev
+      context: Dockerfiles/golangTTY
       args:
         UID: ${UID}
         GID: ${GID}
         APP_ENV: ${APP_ENV}
+    stdin_open: true
     tty: true
-    ports:
-      - '80:80'
     volumes:
-      - ./src:/app
+      - ./src:/go/src
+      - ./bin:/go/bin
+      - ./pkg:/go/pkg
       - ./script:/root
     networks:
-      - awesomeProjectAPINetworks
+      - APINetworks
 
-#  awesome-project-golang:
-#    container_name: awesome-project-golang
-#    build:
-#      context: ./Dockerfiles/awesomeProjectGolang
-#      args:
-#        UID: ${UID}
-#        GID: ${GID}
-#        APP_ENV: ${APP_ENV}
-#    ports:
-#      - '80:80'
-#    volumes:
-#      - ./:/app
-#    networks:
-#      - awesomeProjectAPINetworks
+  golang:
+    container_name: golang
+    build:
+      context: Dockerfiles/golang
+      args:
+        UID: ${UID}
+        GID: ${GID}
+        APP_ENV: ${APP_ENV}
+    ports:
+      - '8001:8080'
+    volumes:
+      - ./src:/go/src
+      - ./bin:/go/bin
+      - ./pkg:/go/pkg
+      - ./script:/root
+    networks:
+      - APINetworks
+
